@@ -148,7 +148,7 @@ function updateCalc() {
 
   // Scroll reveals with stagger
   const groups = [
-    ['.section-head', 0], ['.service-card', 1], ['.accordion-item', 1], ['.review-card', 1],
+    ['.section-head', 0], ['.pest-card', 1], ['.directions-grid > *', 0], ['.service-card', 1], ['.accordion-item', 1], ['.review-card', 1],
     ['.calculator-card', 0], ['.comparison-slider', 0], ['.reviews-header-flex', 0]
   ];
   const targets = [];
@@ -183,6 +183,36 @@ function updateCalc() {
     });
   }
 
+  // Animated anchor scrolling (runs even with reduced motion, but instantly)
+  let autoScroll = false;
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const links = [...document.querySelectorAll('a[href^="#"]')].filter(a => a.getAttribute('href').length > 1);
+  links.forEach((a) => a.addEventListener('click', (e) => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    const from = scrollY, to = Math.max(0, target.getBoundingClientRect().top + from - 70);
+    const dist = to - from, dur = reduce ? 0 : Math.min(1600, 700 + Math.abs(dist) * 0.25);
+    const t0 = performance.now(); autoScroll = true;
+    const step = (now) => {
+      const p = dur ? Math.min((now - t0) / dur, 1) : 1;
+      scrollTo(0, from + dist * ease(p));
+      if (p < 1) requestAnimationFrame(step);
+      else {
+        autoScroll = false;
+        target.classList.remove('flash'); void target.offsetWidth; target.classList.add('flash');
+        history.pushState(null, '', a.getAttribute('href'));
+      }
+    };
+    requestAnimationFrame(step);
+  }));
+  // Highlight current section in navbar
+  const navLinks = [...document.querySelectorAll('.nav-menu a')];
+  const spy = new IntersectionObserver((es) => es.forEach((en) => {
+    if (en.isIntersecting) navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  navLinks.forEach(l => { const t = document.querySelector(l.getAttribute('href')); if (t) spy.observe(t); });
+
   if (reduce) return;
 
   // Scroll-driven: hero parallax + smart navbar
@@ -194,7 +224,7 @@ function updateCalc() {
     if (heroImg && y < 900) heroImg.style.transform = `scale(1.12) translateY(${y * 0.08}px)`;
     if (nav) {
       nav.classList.toggle('scrolled', y > 40);
-      nav.classList.toggle('hide', y > lastY && y > 400 && !document.getElementById('nav-menu').classList.contains('open'));
+      nav.classList.toggle('hide', y > lastY && y > 400 && !document.getElementById('nav-menu').classList.contains('open') && !autoScroll);
     }
     lastY = y; ticking = false;
   };
