@@ -1,6 +1,6 @@
 /**
- * ApexPest Technologies - Client JavaScript
- * Emergency Helpline & WhatsApp: +91 6294601364
+ * M J Enterprise - Client JavaScript
+ * M J Enterprise - WhatsApp: +91 9321980075
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -81,45 +81,21 @@ function toggleAcc(button) {
   }
 }
 
-// Treatment Price Estimator Function
+// Yearly plan price + WhatsApp message
 function updateCalc() {
-  const pestSelect = document.getElementById('calc-pest');
-  const propSelect = document.getElementById('calc-prop');
-  const sevSelect = document.getElementById('calc-sev');
-  const slotSelect = document.getElementById('calc-slot');
-  const priceDisplay = document.getElementById('calc-price-val');
-  const waBtn = document.getElementById('calc-wa-action');
-
-  if (!pestSelect || !propSelect || !sevSelect) return;
-
-  const basePrice = parseFloat(pestSelect.value);
-  const propMult = parseFloat(propSelect.value);
-  const sevMult = parseFloat(sevSelect.value);
-
-  const finalPrice = Math.round((basePrice * propMult * sevMult) / 50) * 50;
-
-  if (priceDisplay) {
-    priceDisplay.innerText = '₹' + finalPrice.toLocaleString();
-  }
-
-  if (waBtn) {
-    const pestName = pestSelect.options[pestSelect.selectedIndex].text;
-    const propName = propSelect.options[propSelect.selectedIndex].text;
-    const slotName = slotSelect ? slotSelect.options[slotSelect.selectedIndex].text : 'Immediate';
-
-    const msg =
-      `🚨 *PEST CONTROL TREATMENT INQUIRY*\n` +
-      `------------------------------------\n` +
-      `🎯 *Pest:* ${pestName}\n` +
-      `🏠 *Property:* ${propName}\n` +
-      `⏰ *Preferred Slot:* ${slotName}\n` +
-      `💰 *Estimated Quote:* ₹${finalPrice.toLocaleString()}\n` +
-      `------------------------------------\n` +
-      `Please confirm technician availability and dispatch ETA to my address.`;
-
-    waBtn.href = `https://wa.me/916294601364?text=${encodeURIComponent(msg)}`;
+  const plan = document.getElementById('calc-pest');
+  if (!plan) return;
+  const slot = document.getElementById('calc-slot');
+  const price = parseInt(plan.value, 10).toLocaleString('en-IN');
+  const out = document.getElementById('calc-price-val');
+  if (out) out.innerText = '₹' + price;
+  const wa = document.getElementById('calc-wa-action');
+  if (wa) {
+    const msg = `*YEARLY PEST CONTROL PLAN ENQUIRY*\nHome size: ${plan.options[plan.selectedIndex].text}\nPreferred time: ${slot ? slot.value : 'Immediate'}\nPlan price: Rs. ${price} (3 services/year)\nPlease confirm availability.`;
+    wa.href = 'https://wa.me/919321980075?text=' + encodeURIComponent(msg);
   }
 }
+
 /* ===== Animations: logo intro, hero entrance, scroll effects ===== */
 (() => {
   const root = document.documentElement;
@@ -148,8 +124,8 @@ function updateCalc() {
 
   // Scroll reveals with stagger
   const groups = [
-    ['.section-head', 0], ['.pest-card', 1], ['.directions-grid > *', 0], ['.service-card', 1], ['.accordion-item', 1], ['.review-card', 1],
-    ['.calculator-card', 0], ['.comparison-slider', 0], ['.reviews-header-flex', 0]
+    ['.section-head', 0], ['.pest-card', 1], ['.directions-grid > *', 0], ['.service-card', 1], ['.accordion-item', 1], 
+    ['.calculator-card', 0], ['.comparison-slider', 0], ['.insta-card', 0]
   ];
   const targets = [];
   groups.forEach(([sel, stagger]) => {
