@@ -353,6 +353,19 @@
           <div class="calc-grid">
             <div class="form-group"><label>1. Home size</label><select id="calc-pest" onchange="updateCalc()"><option value="1800">1 RK Flat - ₹1,800 / year</option><option value="2200">1 BHK Flat - ₹2,200 / year</option><option value="2800">2 BHK Flat - ₹2,800 / year</option><option value="3800">3 BHK Flat - ₹3,800 / year</option><option value="5500">4 BHK Flat - ₹5,500 / year</option></select></div>
             <div class="form-group"><label>2. Preferred time</label><select id="calc-slot"><option>Immediate (24/7)</option><option>Morning</option><option>Afternoon</option><option>Evening</option><option>Night</option></select></div>
+            <div class="form-group cal-wrap">
+              <label>3. Choose booking date <span class="cal-picked" id="cal-picked"></span></label>
+              <div class="cal" id="mj-cal">
+                <div class="cal-head">
+                  <button type="button" class="cal-nav" id="cal-prev" aria-label="Previous month">&#8249;</button>
+                  <strong id="cal-title"></strong>
+                  <button type="button" class="cal-nav" id="cal-next" aria-label="Next month">&#8250;</button>
+                </div>
+                <div class="cal-dow"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+                <div class="cal-grid" id="cal-grid"></div>
+                <div class="cal-quick"><button type="button" id="cal-today">Today</button><button type="button" id="cal-tom">Tomorrow</button></div>
+              </div>
+            </div>
           </div>
           <div class="calc-footer">
             <div><span class="calc-label">Yearly plan price (3 services)</span><div class="calc-price" id="calc-price-val">₹1,800</div><span class="calc-sub">Includes cockroach &amp; spider repellent spray and gel if necessary</span></div>
