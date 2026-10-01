@@ -91,7 +91,7 @@ function updateCalc() {
   if (out) out.innerText = '₹' + price;
   const wa = document.getElementById('calc-wa-action');
   if (wa) {
-    const msg = `*YEARLY PEST CONTROL PLAN ENQUIRY*\nHome size: ${plan.options[plan.selectedIndex].text}\nPreferred time: ${slot ? slot.value : 'Immediate'}\nPlan price: Rs. ${price} (3 services/year)\nPlease confirm availability.`;
+    const msg = `*YEARLY PEST CONTROL PLAN ENQUIRY*\nHome size: ${plan.options[plan.selectedIndex].text}\nBooking date: ${window.mjDateText || 'Today'}\nPreferred time: ${slot ? slot.value : 'Immediate'}\nPlan price: Rs. ${price} (3 services/year)\nPlease confirm availability.`;
     wa.href = 'https://wa.me/919321980075?text=' + encodeURIComponent(msg);
   }
 }
@@ -222,4 +222,42 @@ function updateCalc() {
       });
     });
   }
+})();
+
+
+/* ===== Booking calendar (any day) ===== */
+(() => {
+  const grid = document.getElementById('cal-grid'); if (!grid) return;
+  const title = document.getElementById('cal-title'), picked = document.getElementById('cal-picked');
+  const strip = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const today = strip(new Date());
+  let view = new Date(today.getFullYear(), today.getMonth(), 1), sel = today;
+  const fmt = (d) => d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const same = (a, b) => a.getTime() === b.getTime();
+  function choose(d) {
+    sel = d; window.mjDateText = fmt(d);
+    picked.textContent = '\u2192 ' + fmt(d);
+    render(); if (window.updateCalc) updateCalc();
+  }
+  function render(anim) {
+    title.textContent = view.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+    const first = view.getDay(), days = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+    let html = '<i></i>'.repeat(first);
+    for (let n = 1; n <= days; n++) {
+      const d = new Date(view.getFullYear(), view.getMonth(), n), past = d < today;
+      html += `<button type="button" class="cal-day${same(d, today) ? ' today' : ''}${same(d, sel) ? ' sel' : ''}" data-d="${n}" ${past ? 'disabled' : ''}>${n}</button>`;
+    }
+    grid.innerHTML = html;
+    if (anim) { grid.classList.remove('swap'); void grid.offsetWidth; grid.classList.add('swap'); }
+    document.getElementById('cal-prev').disabled = view <= new Date(today.getFullYear(), today.getMonth(), 1);
+  }
+  grid.addEventListener('click', (e) => {
+    const b = e.target.closest('.cal-day'); if (!b || b.disabled) return;
+    choose(new Date(view.getFullYear(), view.getMonth(), +b.dataset.d));
+  });
+  document.getElementById('cal-prev').onclick = () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(true); };
+  document.getElementById('cal-next').onclick = () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(true); };
+  document.getElementById('cal-today').onclick = () => { view = new Date(today.getFullYear(), today.getMonth(), 1); choose(today); };
+  document.getElementById('cal-tom').onclick = () => { const t = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1); view = new Date(t.getFullYear(), t.getMonth(), 1); choose(t); };
+  choose(today);
 })();
