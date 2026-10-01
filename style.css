@@ -786,3 +786,9 @@ section.flash .section-title, section.flash .kicker { animation: flash 1.1s ease
 .insta-ico { width: 64px; height: 64px; border-radius: 18px; background: linear-gradient(45deg,#f59e0b,#dc2626,#9333ea); display: flex; align-items: center; justify-content: center; color: #fff; }
 .insta-ico svg { width: 30px; height: 30px; }
 @media (max-width: 640px) { .insta-card { padding: 1.5rem; } .insta-card .btn-primary { width: 100%; } }
+
+/* Instagram icon in header */
+.nav-insta { width: 40px; height: 40px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; color: #fff; background: linear-gradient(45deg, #f59e0b, #dc2626 55%, #9333ea); box-shadow: 0 4px 14px rgba(220,38,38,.3); transition: transform .3s cubic-bezier(.3,1.6,.5,1), box-shadow .2s; }
+.nav-insta svg { width: 20px; height: 20px; }
+.nav-insta:hover { transform: translateY(-2px) rotate(-8deg) scale(1.08); box-shadow: 0 8px 20px rgba(220,38,38,.45); }
+@media (max-width: 640px) { .nav-insta { width: 36px; height: 36px; border-radius: 10px; } .nav-actions { gap: .5rem; } }
