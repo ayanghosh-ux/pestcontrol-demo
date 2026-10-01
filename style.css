@@ -792,3 +792,28 @@ section.flash .section-title, section.flash .kicker { animation: flash 1.1s ease
 .nav-insta svg { width: 20px; height: 20px; }
 .nav-insta:hover { transform: translateY(-2px) rotate(-8deg) scale(1.08); box-shadow: 0 8px 20px rgba(220,38,38,.45); }
 @media (max-width: 640px) { .nav-insta { width: 36px; height: 36px; border-radius: 10px; } .nav-actions { gap: .5rem; } }
+
+/* Header fixes: no wrapping, instagram always visible */
+.brand, .brand span, .nav-actions a, .nav-menu a { white-space: nowrap; }
+.brand { flex-shrink: 0; }
+.nav-actions { flex-shrink: 0; }
+.nav-insta .ig-svg { width: 20px; height: 20px; }
+.insta-ico .ig-svg { width: 30px; height: 30px; }
+@media (max-width: 1280px) { .nav-menu { gap: 1.1rem; } .nav-container { gap: 1rem; } }
+@media (max-width: 1100px) {
+  .nav-menu { display: none; }
+  .mobile-toggle { display: block; flex-shrink: 0; }
+  .nav-menu.open { display: flex !important; flex-direction: column; align-items: flex-start; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: rgba(6,5,5,.98); padding: .5rem 1.5rem 1rem; border-bottom: 1px solid var(--border-subtle); }
+  .nav-menu.open a { width: 100%; padding: .9rem 0; font-size: 1rem; border-bottom: 1px solid var(--border-subtle); }
+  .nav-menu.open a::after { display: none; }
+}
+@media (max-width: 640px) {
+  .navbar .container { padding: 0 .75rem; }
+  .brand { font-size: 1rem; gap: .4rem; }
+  .brand-badge { width: 32px; height: 32px; }
+  .nav-actions { gap: .4rem; }
+  .nav-actions .btn-wa { width: 36px; height: 36px; padding: 0; }
+  .nav-insta { width: 36px; height: 36px; }
+  .mobile-toggle { padding: 0 .25rem; }
+}
+@media (max-width: 380px) { .brand { font-size: .9rem; } .brand-badge { display: none; } }
