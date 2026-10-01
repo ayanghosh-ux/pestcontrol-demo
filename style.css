@@ -817,3 +817,24 @@ section.flash .section-title, section.flash .kicker { animation: flash 1.1s ease
   .mobile-toggle { padding: 0 .25rem; }
 }
 @media (max-width: 380px) { .brand { font-size: .9rem; } .brand-badge { display: none; } }
+
+/* ===== Booking calendar ===== */
+.cal-wrap { grid-column: 1 / -1; }
+.cal-picked { text-transform: none; color: var(--primary); font-weight: 600; margin-left: .5rem; letter-spacing: 0; }
+.cal { background: rgba(0,0,0,.35); border: 1px solid var(--border-subtle); border-radius: 1rem; padding: 1rem; max-width: 460px; }
+.cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: .75rem; color: #fff; font-family: var(--font-display); }
+.cal-nav { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border-subtle); background: rgba(255,255,255,.04); color: #fff; font-size: 1.3rem; line-height: 1; cursor: pointer; transition: background .2s, transform .2s; }
+.cal-nav:hover:not(:disabled) { background: var(--primary); transform: scale(1.08); }
+.cal-nav:disabled { opacity: .3; cursor: not-allowed; }
+.cal-dow, .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+.cal-dow span { font-size: .65rem; color: var(--text-muted); text-transform: uppercase; padding-bottom: .4rem; }
+.cal-day { aspect-ratio: 1; border-radius: 10px; border: 1px solid transparent; background: rgba(255,255,255,.04); color: #fff; font-size: .85rem; font-weight: 600; cursor: pointer; transition: transform .2s, background .2s, box-shadow .2s; }
+.cal-day:hover:not(:disabled) { background: rgba(220,38,38,.25); transform: scale(1.1); }
+.cal-day.today { border-color: var(--primary); }
+.cal-day.sel { background: var(--primary); box-shadow: 0 4px 14px rgba(220,38,38,.5); transform: scale(1.06); }
+.cal-day:disabled { opacity: .25; cursor: not-allowed; background: none; }
+.cal-grid.swap { animation: accIn .35s ease; }
+.cal-quick { display: flex; gap: .5rem; margin-top: .75rem; }
+.cal-quick button { flex: 1; padding: .55rem; border-radius: 10px; border: 1px solid var(--border-accent); background: rgba(220,38,38,.1); color: #fca5a5; font-weight: 700; font-size: .75rem; cursor: pointer; transition: background .2s; }
+.cal-quick button:hover { background: rgba(220,38,38,.25); }
+@media (max-width: 640px) { .cal { max-width: 100%; padding: .75rem; } .cal-picked { display: block; margin: .25rem 0 0; } }
