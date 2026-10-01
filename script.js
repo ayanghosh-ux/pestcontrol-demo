@@ -1,6 +1,6 @@
 /**
  * M J Enterprise - Client JavaScript
- * M J Enterprise - WhatsApp: +91 9321980075
+ * M J Enterprise - WhatsApp: +91 9867130075
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -92,7 +92,7 @@ function updateCalc() {
   const wa = document.getElementById('calc-wa-action');
   if (wa) {
     const msg = `*YEARLY PEST CONTROL PLAN ENQUIRY*\nHome size: ${plan.options[plan.selectedIndex].text}\nBooking date: ${window.mjDateText || 'Today'}\nPreferred time: ${slot ? slot.value : 'Immediate'}\nPlan price: Rs. ${price} (3 services/year)\nPlease confirm availability.`;
-    wa.href = 'https://wa.me/919321980075?text=' + encodeURIComponent(msg);
+    wa.href = 'https://wa.me/919867130075?text=' + encodeURIComponent(msg);
   }
 }
 
@@ -125,7 +125,7 @@ function updateCalc() {
   // Scroll reveals with stagger
   const groups = [
     ['.section-head', 0], ['.pest-card', 1], ['.directions-grid > *', 0], ['.service-card', 1], ['.accordion-item', 1], 
-    ['.calculator-card', 0], ['.comparison-slider', 0], ['.insta-card', 0]
+    ['.calculator-card', 0], ['.comparison-slider', 0], ['.insta-card', 0], ['.contact-card', 1]
   ];
   const targets = [];
   groups.forEach(([sel, stagger]) => {
