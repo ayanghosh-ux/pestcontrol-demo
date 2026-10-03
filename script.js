@@ -125,7 +125,7 @@ function updateCalc() {
   // Scroll reveals with stagger
   const groups = [
     ['.section-head', 0], ['.pest-card', 1], ['.directions-grid > *', 0], ['.service-card', 1], ['.accordion-item', 1], 
-    ['.calculator-card', 0], ['.comparison-slider', 0], ['.insta-card', 0], ['.contact-card', 1]
+    ['.calculator-card', 0], ['.comparison-slider', 0], ['.insta-card', 0], ['.contact-card', 1], ['.work-item', 1], ['.places-list li', 1]
   ];
   const targets = [];
   groups.forEach(([sel, stagger]) => {
@@ -260,4 +260,18 @@ function updateCalc() {
   document.getElementById('cal-today').onclick = () => { view = new Date(today.getFullYear(), today.getMonth(), 1); choose(today); };
   document.getElementById('cal-tom').onclick = () => { const t = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1); view = new Date(t.getFullYear(), t.getMonth(), 1); choose(t); };
   choose(today);
+})();
+
+
+/* ===== Work gallery lightbox ===== */
+(() => {
+  const lb = document.getElementById('lightbox'); if (!lb) return;
+  const img = lb.querySelector('img');
+  const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+  document.querySelectorAll('.work-item').forEach((f) => f.addEventListener('click', () => {
+    img.src = f.dataset.full; img.alt = f.querySelector('img').alt;
+    lb.classList.add('open'); document.body.style.overflow = 'hidden';
+  }));
+  lb.addEventListener('click', close);
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 })();
